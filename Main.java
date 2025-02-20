@@ -1,4 +1,3 @@
-package src;
 import javax.swing.JFrame;
 
 public class Main extends JFrame {
@@ -7,7 +6,7 @@ public class Main extends JFrame {
         setTitle("Pong"); 
         setResizable(false); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); 
 
         PongGame pongGame = new PongGame("Player 1", "Player 2", true);
         add(pongGame);
@@ -15,6 +14,7 @@ public class Main extends JFrame {
         pack(); 
         setVisible(true); 
 
+        
         new Thread(() -> {
             while (true) {
                 pongGame.gameLogic();

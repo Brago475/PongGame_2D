@@ -1,4 +1,3 @@
-package src;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -11,8 +10,8 @@ public class PongGame extends JPanel implements KeyListener {
 
     private Ball gameBall;
     private Paddle leftPaddle, rightPaddle;
-    private Ball backgroundBall; // New background ball
-    private Timer colorChangeTimer; // Timer for color changes
+    private Ball backgroundBall;
+    private Timer colorChangeTimer;
 
     static final int WINDOW_WIDTH = 640;
     static final int WINDOW_HEIGHT = 480;
@@ -29,9 +28,9 @@ public class PongGame extends JPanel implements KeyListener {
     private boolean upPressed = false, downPressed = false;
     private boolean wPressed = false, sPressed = false;
 
-    private Color[] colors = {Color.YELLOW, Color.WHITE, Color.RED, Color.MAGENTA, Color.GREEN, Color.CYAN, 
-        Color.BLUE}; // Colors for background ball
-        
+    private Color[] colors = { Color.YELLOW, Color.WHITE, Color.RED, Color.MAGENTA, Color.GREEN, Color.CYAN,
+            Color.BLUE }; // Colors for background ball
+
     private Random rand = new Random();
 
     public PongGame(String player1Name, String player2Name, boolean player1ControlsLeftPaddle) {
@@ -50,30 +49,26 @@ public class PongGame extends JPanel implements KeyListener {
 
         setLayout(null);
 
-        // Initialize background ball for interactive effect
         backgroundBall = new Ball(150, 100, 2, 2, 2, colors[0], 15);
 
-        // "Play Game" button to start the game
         playGameButton = new JButton("Play Game");
         playGameButton.setBounds(WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2 - 50, 100, 40);
         playGameButton.addActionListener(e -> startGame());
         add(playGameButton);
 
-        // "No More" button to exit the application
         noMoreButton = new JButton("No More");
         noMoreButton.setBounds(WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2 + 10, 100, 40);
         noMoreButton.addActionListener(e -> System.exit(0));
         add(noMoreButton);
 
-        // Quit button for exiting the game mid-play
+        
         quitButton = new JButton("Quit");
         quitButton.setBounds(WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT - 50, 100, 40);
         quitButton.addActionListener(e -> quitGame());
         quitButton.setFocusable(false);
-        quitButton.setVisible(false); // Initially hidden
+        quitButton.setVisible(false); 
         add(quitButton);
 
-        // Restart button, hidden initially, shown only at game end
         restartButton = new JButton("Restart");
         restartButton.setBounds(WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2, 100, 40);
         restartButton.addActionListener(e -> restartGame());
@@ -86,7 +81,7 @@ public class PongGame extends JPanel implements KeyListener {
         gameStarted = true;
         playGameButton.setVisible(false);
         noMoreButton.setVisible(false);
-        quitButton.setVisible(true); // Show the quit button when game starts
+        quitButton.setVisible(true); 
     }
 
     @Override
@@ -96,7 +91,7 @@ public class PongGame extends JPanel implements KeyListener {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        // If the game hasn't started, show the background ball as a moving, color-changing element
+       
         if (!gameStarted) {
             backgroundBall.paint(g);
             backgroundBall.moveBall();
@@ -137,7 +132,7 @@ public class PongGame extends JPanel implements KeyListener {
 
             drawCenteredText(g, endMessage, getWidth() / 2, getHeight() / 2 - 40);
             restartButton.setVisible(true);
-            quitButton.setVisible(false); // Hide quit button at game end
+            quitButton.setVisible(false); 
         }
     }
 
@@ -147,22 +142,27 @@ public class PongGame extends JPanel implements KeyListener {
         g.drawString(text, x - textWidth / 2, y);
     }
 
-    // Change color of background ball each time it bounces
     private void changeBackgroundBallColor() {
         Color newColor = colors[rand.nextInt(colors.length)];
         backgroundBall.setColor(newColor);
     }
 
     public void gameLogic() {
-        if (gameEnded || !gameStarted) return; // Only run if game is active
+        if (gameEnded || !gameStarted) return; 
+        if (gameEnded || !gameStarted)
+            return; 
 
         gameBall.moveBall();
         gameBall.bounceOffEdges(0, WINDOW_HEIGHT);
 
-        if (upPressed && rightPaddle.getY() > 0) rightPaddle.moveUp();
-        if (downPressed && rightPaddle.getY() < WINDOW_HEIGHT - rightPaddle.getHeight()) rightPaddle.moveDown();
-        if (wPressed && leftPaddle.getY() > 0) leftPaddle.moveUp();
-        if (sPressed && leftPaddle.getY() < WINDOW_HEIGHT - leftPaddle.getHeight()) leftPaddle.moveDown();
+        if (upPressed && rightPaddle.getY() > 0)
+            rightPaddle.moveUp();
+        if (downPressed && rightPaddle.getY() < WINDOW_HEIGHT - rightPaddle.getHeight())
+            rightPaddle.moveDown();
+        if (wPressed && leftPaddle.getY() > 0)
+            leftPaddle.moveUp();
+        if (sPressed && leftPaddle.getY() < WINDOW_HEIGHT - leftPaddle.getHeight())
+            leftPaddle.moveDown();
 
         if (leftPaddle.checkCollision(gameBall)) {
             gameBall.reverseX();
@@ -175,12 +175,14 @@ public class PongGame extends JPanel implements KeyListener {
 
         if (gameBall.getX() < 0) {
             player2Score++;
-            if (player2Score % 5 == 0) gameBall.increaseSpeed(1);
+            if (player2Score % 5 == 0)
+                gameBall.increaseSpeed(1);
             checkWinCondition();
             resetPosition();
         } else if (gameBall.getX() > WINDOW_WIDTH) {
             player1Score++;
-            if (player1Score % 5 == 0) gameBall.increaseSpeed(1);
+            if (player1Score % 5 == 0)
+                gameBall.increaseSpeed(1);
             checkWinCondition();
             resetPosition();
         }
@@ -190,7 +192,7 @@ public class PongGame extends JPanel implements KeyListener {
         if (player1Score >= winningScore || player2Score >= winningScore) {
             gameEnded = true;
             restartButton.setVisible(true);
-            quitButton.setVisible(false); // Hide Quit button on game end
+            quitButton.setVisible(false);
         }
     }
 
@@ -205,17 +207,17 @@ public class PongGame extends JPanel implements KeyListener {
         player2Score = 0;
         gameEnded = false;
         gameStarted = false;
-        
-        restartButton.setVisible(false);  // Hide the restart button on game restart
-        quitButton.setVisible(false);     // Hide the quit button initially
-        
+
+        restartButton.setVisible(false); 
+        quitButton.setVisible(false); 
+
         playGameButton.setVisible(true);
         noMoreButton.setVisible(true);
-        
+
         resetPosition();
         repaint();
     }
-    
+
     public void resetPosition() {
         gameBall.setX(WINDOW_WIDTH / 2);
         gameBall.setY(WINDOW_HEIGHT / 2);
@@ -243,5 +245,6 @@ public class PongGame extends JPanel implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 }

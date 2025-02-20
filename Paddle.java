@@ -1,13 +1,11 @@
-package src;
+
 import java.awt.*;
 
 public class Paddle {
 
-   
     private int height, x, y, initialY, speed;
     private Color color;
 
-   
     static final int PADDLE_WIDTH = 15;
 
     public Paddle(int x, int y, int height, int speed, Color color) {
@@ -19,7 +17,6 @@ public class Paddle {
         this.initialY = y; 
     }
 
-   
     public void paint(Graphics g) {
         g.setColor(color);
         g.fillRect(x, y, PADDLE_WIDTH, height);
