@@ -4,25 +4,23 @@ import javax.swing.JFrame;
 public class Main extends JFrame {
 
     public Main() {
-        setTitle("Pong"); // Set title
-        setResizable(false); // Fix the screen size
+        setTitle("Pong"); 
+        setResizable(false); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Center the screen
+        setLocationRelativeTo(null);
 
-        // Initialize PongGame with default player names and control preferences
         PongGame pongGame = new PongGame("Player 1", "Player 2", true);
         add(pongGame);
 
-        pack(); // Adjust frame size to match PongGame's preferred size
-        setVisible(true); // Make the frame visible
+        pack(); 
+        setVisible(true); 
 
-        // Start the game update loop
         new Thread(() -> {
             while (true) {
                 pongGame.gameLogic();
                 pongGame.repaint();
                 try {
-                    Thread.sleep(10); // Adjust delay for smooth animation
+                    Thread.sleep(10); 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
