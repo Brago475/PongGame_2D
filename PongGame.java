@@ -10,8 +10,8 @@ public class PongGame extends JPanel implements KeyListener {
 
     private Ball gameBall;
     private Paddle leftPaddle, rightPaddle;
-    private Ball backgroundBall; // New background ball
-    private Timer colorChangeTimer; // Timer for color changes
+    private Ball backgroundBall;
+    private Timer colorChangeTimer;
 
     static final int WINDOW_WIDTH = 640;
     static final int WINDOW_HEIGHT = 480;
@@ -28,9 +28,9 @@ public class PongGame extends JPanel implements KeyListener {
     private boolean upPressed = false, downPressed = false;
     private boolean wPressed = false, sPressed = false;
 
-    private Color[] colors = {Color.YELLOW, Color.WHITE, Color.RED, Color.MAGENTA, Color.GREEN, Color.CYAN, 
-        Color.BLUE}; // Colors for background ball
-        
+    private Color[] colors = { Color.YELLOW, Color.WHITE, Color.RED, Color.MAGENTA, Color.GREEN, Color.CYAN,
+            Color.BLUE }; // Colors for background ball
+
     private Random rand = new Random();
 
     public PongGame(String player1Name, String player2Name, boolean player1ControlsLeftPaddle) {
@@ -69,7 +69,6 @@ public class PongGame extends JPanel implements KeyListener {
         quitButton.setVisible(false); 
         add(quitButton);
 
-        // Restart button, hidden initially, shown only at game end
         restartButton = new JButton("Restart");
         restartButton.setBounds(WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2, 100, 40);
         restartButton.addActionListener(e -> restartGame());
@@ -92,7 +91,7 @@ public class PongGame extends JPanel implements KeyListener {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        // If the game hasn't started, show the background ball as a moving, color-changing element
+       
         if (!gameStarted) {
             backgroundBall.paint(g);
             backgroundBall.moveBall();
@@ -149,7 +148,9 @@ public class PongGame extends JPanel implements KeyListener {
     }
 
     public void gameLogic() {
-        if (gameEnded || !gameStarted) return; // Only run if game is active
+        if (gameEnded || !gameStarted) return; 
+        if (gameEnded || !gameStarted)
+            return; 
 
         gameBall.moveBall();
         gameBall.bounceOffEdges(0, WINDOW_HEIGHT);
@@ -206,10 +207,10 @@ public class PongGame extends JPanel implements KeyListener {
         player2Score = 0;
         gameEnded = false;
         gameStarted = false;
-        
-        restartButton.setVisible(false);  // Hide the restart button on game restart
-        quitButton.setVisible(false);     // Hide the quit button initially
-        
+
+        restartButton.setVisible(false); 
+        quitButton.setVisible(false); 
+
         playGameButton.setVisible(true);
         noMoreButton.setVisible(true);
 
